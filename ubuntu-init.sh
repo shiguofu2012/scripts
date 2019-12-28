@@ -88,6 +88,19 @@ function install_pip_packages()
 }
 
 
+function installJDK()
+{
+    `cd /opt && wget http://image.shiguofu.cn/static/jdk1.8.0_144.tar.xz`
+    echo "decompress file..."
+    cd /opt && xz -z jdk1.8.0_144.tar.xz
+    cd /opt && tar -xvf jdk1.8.0_144.tar
+    echo "export JAVA_HOME=/opt/jdk1.8.0_144" >> ~/.bashrc
+    echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
+    echo 'export CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar' >> ~/.bashrc
+    source ~/.bashrc
+}
+
+
 change_apt_source
 install_sys_packages
 change_pip_source
