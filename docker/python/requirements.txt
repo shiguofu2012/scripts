@@ -1,0 +1,15 @@
+pycrypto
+Cython
+flask
+pymongo==2.7
+simplejson
+uwsgi
+requests==2.4.3
+redis
+qrcode
+mysql
+jinja2
+xmltodict
+pillow
+qiniu==7.2.6
+lxml
