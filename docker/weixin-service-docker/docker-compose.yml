@@ -1,0 +1,40 @@
+version: "3"
+services:
+
+    web:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: weixin-service
+        image: 'python-weixin'
+        ports:
+            - "80:80"
+            - "2221:22"
+            - "443:443"
+        links:
+            - mysql:sql-db
+            - mongo:mongo-db
+
+    mysql:
+        container_name: sql-db
+        image: 'mysql:5.7'
+        ports:
+            - "3306:3306"
+        volumes:
+            - database:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: P@55word
+
+
+    mongo:
+        container_name: mongo-db
+        image: 'mongo'
+        ports:
+            - "27017:27017"
+        volumes:
+            - database:/data/db
+
+volumes:
+    database:
+        external:
+            name: database
