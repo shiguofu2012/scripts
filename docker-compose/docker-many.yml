@@ -1,0 +1,67 @@
+version: '2.2'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345678
+    ports:
+      - 3306:3306
+    volumes:
+      - /Users/shiguofu/data/mysql5:/var/lib/mysql
+
+  redis:
+    image: redis:6
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - /Users/shiguofu/data/redis6:/data
+
+  nsqlookupd:
+    image: nsqio/nsq
+    container_name: nsqlookupd
+    command: /nsqlookupd
+    ports:
+      - 4160:4160
+      - 4161:4161
+
+  nsqd:
+    image: nsqio/nsq
+    container_name: nsqd
+    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160
+    depends_on:
+      - nsqlookupd
+    ports:
+      - 4150:4150
+      - 4151:4151
+    volumes:
+      - /Users/shiguofu/data/nsqd:/data
+
+  nsqadmin:
+    image: nsqio/nsq
+    container_name: nsqadmin
+    command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
+    depends_on:
+      - nsqlookupd  
+    ports:
+      - 4171:4171
+
+
+  vault:
+    image: vault
+    container_name: vault
+    command: vault server -config=/vault/config/vault.json
+    ports:
+      - 8300:8200
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - /Users/shiguofu/data/vault/file:/vault/file
+      - /Users/shiguofu/data/vault/config:/vault/config
+      - /Users/shiguofu/data/vault/logs:/vault/logs
+
+
+networks:
+  signature:
+    name: signature
