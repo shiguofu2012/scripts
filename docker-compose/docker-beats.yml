@@ -1,0 +1,19 @@
+version: '2.2'
+services:
+  filebeat:
+    image: elastic/filebeat:7.5.1
+    container_name: filebeat
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./beat_data:/usr/share/filebeat/data
+
+      - /tmp/log:/data/app_log/basic/
+    networks:
+      - shiguofu_net
+    external_links:
+      - logstash
+
+networks:
+  shiguofu_net:
+    external: 
+      name: docker-compose_default

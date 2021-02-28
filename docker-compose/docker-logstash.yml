@@ -1,0 +1,21 @@
+version: '2.2'
+services:
+
+  logstash:
+    image: logstash:7.5.1
+    container_name: logstash
+    volumes:
+      - /Users/shiguofu/Public/docker-compose/logstash.conf:/usr/share/logstash/config/logstash.conf
+      - /Users/shiguofu/Public/docker-compose/logstash.yml:/usr/share/logstash/config/logstash.yml
+    ports:
+      - 5044:5044
+    networks:
+      - shiguofu_net
+    external_links:
+      - elasticsearch01
+    command: logstash -f config/logstash.conf
+
+networks:
+  shiguofu_net:
+    external: 
+      name: docker-compose_default

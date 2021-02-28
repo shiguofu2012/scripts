@@ -63,5 +63,5 @@ services:
 
 
 networks:
-  signature:
-    name: signature
+  my-network:
+    name: my-network

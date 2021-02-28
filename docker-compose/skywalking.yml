@@ -1,0 +1,34 @@
+version: '2.2'
+services:
+
+  oap-server:
+    image: apache/skywalking-oap-server
+    container_name: oap-server
+    environment:
+      SW_STORAGE: elasticsearch7
+      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch01:9200
+      SW_ES_USER: "elastic"
+      SW_ES_PASSWORD: "\"123456\""
+    networks:
+      - oap-server
+      - shiguofu_net
+    ports:
+      - 11800:11800
+      - 12800:12800
+
+  oap-ui:
+    image: apache/skywalking-ui
+    container_name: oap-ui
+    environment:
+      SW_OAP_ADDRESS: oap-server:12800
+    depends_on:
+      - oap-server
+    ports:
+      - 81:8080
+
+networks:
+  oap-server:
+    name: skywalking
+  shiguofu_net:
+    external:
+      name: docker-compose_default
