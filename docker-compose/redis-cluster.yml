@@ -1,0 +1,70 @@
+version: '2.2'
+services:
+
+  redis1:
+    image: redis:6
+    container_name: redis1
+    ports:
+      - 6379:6379
+      - 16379:16379
+    volumes:
+      - /Users/shiguofu/data/redis6/6379/data:/data
+      - /Users/shiguofu/data/redis6/6379/conf/redis.conf:/etc/redis/redis.conf
+    command: redis-server /etc/redis/redis.conf
+
+  redis2:
+    image: redis:6
+    container_name: redis2
+    ports:
+      - 6380:6380
+      - 16380:16380
+    volumes:
+      - /Users/shiguofu/data/redis6/6380/data:/data
+      - /Users/shiguofu/data/redis6/6380/conf/redis.conf:/etc/redis/redis.conf
+    command: redis-server /etc/redis/redis.conf
+
+  redis3:
+    image: redis:6
+    container_name: redis3
+    ports:
+      - 6381:6381
+      - 16381:16381
+    volumes:
+      - /Users/shiguofu/data/redis6/6381/data:/data
+      - /Users/shiguofu/data/redis6/6381/conf/redis.conf:/etc/redis/redis.conf
+    command: redis-server /etc/redis/redis.conf
+
+  redis4:
+    image: redis:6
+    container_name: redis4
+    ports:
+      - 6382:6382
+      - 16382:16382
+    volumes:
+      - /Users/shiguofu/data/redis6/6382/data:/data
+      - /Users/shiguofu/data/redis6/6382/conf/redis.conf:/etc/redis/redis.conf
+    command: redis-server /etc/redis/redis.conf
+
+
+  redis5:
+    image: redis:6
+    container_name: redis5
+    ports:
+      - 6383:6383
+      - 16383:16383
+    volumes:
+      - /Users/shiguofu/data/redis6/6383/data:/data
+      - /Users/shiguofu/data/redis6/6383/conf/redis.conf:/etc/redis/redis.conf
+    command: redis-server /etc/redis/redis.conf
+
+
+  redis6:
+    image: redis:6
+    container_name: redis6
+    ports:
+      - 6384:6384
+      - 16384:16384
+    volumes:
+      - /Users/shiguofu/data/redis6/6384/data:/data
+      - /Users/shiguofu/data/redis6/6384/conf/redis.conf:/etc/redis/redis.conf
+    command: redis-server /etc/redis/redis.conf
