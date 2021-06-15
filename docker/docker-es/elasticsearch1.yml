@@ -1,0 +1,20 @@
+cluster.name: signature
+cluster.initial_master_nodes: ["es-node1", "es-node2", "es-node3"]
+
+node.name: es-node1
+node.master: true
+node.data: true
+
+# path.data: /data/es/es1/data
+# path.logs: /data/es/es1/log
+# path.repo: /data/es/es1/repo
+
+network.host: elasticsearch01
+
+http.port: 9200
+
+transport.tcp.port: 9300
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+
+discovery.seed_hosts: ["elasticsearch01","elasticsearch03", "elasticsearch02"]

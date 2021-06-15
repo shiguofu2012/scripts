@@ -1,0 +1,15 @@
+cluster.name: signature
+node.name: es-node2
+
+# network.bind_host: 0.0.0.0
+network.host: 0.0.0.0
+network.publish_host: elasticsearch02
+http.port: 9200
+transport.tcp.port: 9300
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+node.master: true
+node.data: true
+cluster.initial_master_nodes: ["es-node1", "es-node2", "es-node3"]
+# discovery.zen.ping.unicast.hosts: ["elasticsearch01","elasticsearch03", "elasticsearch02"]
+discovery.seed_hosts: ["elasticsearch01","elasticsearch03", "elasticsearch02"]

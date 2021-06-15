@@ -1,0 +1,75 @@
+version: '2.2'
+services:
+  elasticsearch01:
+    image: elasticsearch:7.5.1
+    container_name: es01
+    networks:
+      - shiguofu_net
+    # environment:
+      # - discovery.type=single-node
+      # - xpack.security.enabled=true
+      # - xpack.license.self_generated.type=basic
+      # - xpack.security.transport.ssl.enabled=true
+    ports:
+      - 9200:9200
+      - 9201:9300
+    volumes:
+      - /root/data/es-7.5.1-1:/usr/share/elasticsearch/data
+      - /root/data/es-7.5.1-1/es.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
+  elasticsearch02:
+    image: elasticsearch:7.5.1
+    container_name: es02
+    networks:
+      - shiguofu_net
+    # environment:
+      # - discovery.type=single-node
+      # - xpack.security.enabled=true
+      # - xpack.license.self_generated.type=basic
+      # - xpack.security.transport.ssl.enabled=true
+    ports:
+      - 9300:9200
+      - 9301:9300
+    volumes:
+      - /root/data/es-7.5.1-2:/usr/share/elasticsearch/data
+      - /root/data/es-7.5.1-2/es.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  elasticsearch03:
+    image: elasticsearch:7.5.1
+    container_name: es03
+    networks:
+      - shiguofu_net
+    # environment:
+      # - discovery.type=single-node
+      # - xpack.security.enabled=true
+      # - xpack.license.self_generated.type=basic
+      # - xpack.security.transport.ssl.enabled=true
+    ports:
+      - 9400:9200
+      - 9401:9300
+    volumes:
+      - /root/data/es-7.5.1-3:/usr/share/elasticsearch/data
+      - /root/data/es-7.5.1-3/es.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
+
+  kibana:
+    image: kibana:7.5.1
+    container_name: kibana
+    links:
+      - elasticsearch01
+    networks:
+      - shiguofu_net
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch01:9200"
+      ELASTICSEARCH_USERNAME: "kibana"
+      ELASTICSEARCH_PASSWORD: "\"123456\""
+    depends_on:
+      - elasticsearch01
+    ports:
+      - 5601:5601
+
+networks:
+  shiguofu_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.2.0/24
